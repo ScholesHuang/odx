@@ -1,0 +1,24 @@
+{
+    "children": [ 
+           { "children": [ 	
+            		{
+            			 "id": "dojox/mobile/TabBar",
+                          "name": "tabBar"
+            		},   			
+            		{
+            			 "id": "dojox/mobile/Slider",
+                          "name": "slider"
+            		},
+            		{
+            			 "id": "dojox/mobile/Button",
+                          "name": "button"
+            		}      					
+            	        ],
+            "id": "tree",
+            "name": "Form controls",
+            "type": "group"
+        
+   } ],
+    "id": "root",
+    "name": "mobile"
+}

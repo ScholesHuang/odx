@@ -39,6 +39,7 @@ body {
 }
 .play-box{
 	margin-top: 15px;
+	padding: 5px 5px;
 }
 /* ---------- Syntax Highlighting ---------- */
 .play-box .syntaxhighlighter .toolbar {
@@ -118,7 +119,7 @@ body {
 	margin-left: 40px !important;
 	color:white !important;
 }
-.searchbox{
+.searchbox, .searchbox input, .searchbox div{
 	border-radius: 10px;
 	height: 20px;
 }
@@ -169,6 +170,64 @@ body {
 	overflow-x: hidden !important;
 }
 
+.widget-id{
+	display: block;
+	color: rgb(0, 139, 255);
+	font-weight: bold;
+	margin: 12px 10px;
+	width:400px
+}
+.main-panel{
+	margin: 0px 12px;
+}
 
+.widget-id-text{
+	line-height: 25px;
+	padding: 60px;
+}
+.previous-button{
+	float:left;
+}
+.next-button{
+
+}
+
+.dijitTab{
+	padding: 5px 35px !important;
+	border: 0px solid #b5bcc7 !important;
+}
+.dijitTabContainerTop-container{
+	border:0px !important;
+}
+.dijitTabContainerTop-tabs {
+	border-bottom: 0px solid black !important;
+}
+
+/* Let's get this party started */
+::-webkit-scrollbar {
+    width: 10px;
+}
+ 
+/* Track */
+::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset 0 0 1px rgba(0,0,0,0.3); 
+    -webkit-border-radius: 10px;
+    border-radius: 10px;
+    border: 3px solid white;
+    background : rgba(33, 106, 255, 1); 
+     
+}
+ 
+/* Handle */
+::-webkit-scrollbar-thumb {
+    -webkit-border-radius: 10px;
+    border-radius: 10px;
+    background: rgba(69,69,69,0.8); 
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.5); 
+    
+}
+::-webkit-scrollbar-thumb:window-inactive {
+	background: rgba(69,69,69,0.4); 
+}
 
 /* ----------------------------------------- */

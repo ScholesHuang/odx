@@ -56,6 +56,7 @@ define(
 		var htmSrc = null;
 		var jsSrc = null;
 		var settingStr = null;
+		var title = null;
 
 		return {
 			init: function() {
@@ -69,6 +70,7 @@ define(
 				declarationBox = dijit.byId("desktop-play-declaration");
 				programmaticBox = dijit.byId("desktop-play-programmatic");
 				settingBox = dijit.byId("desktop-play-setting");
+				title = dojo.byId("widget-title");
 			},
 			beforeActivate: function(previous, data) {
 				lang.mixin(data, {
@@ -79,6 +81,8 @@ define(
 				});
 			},
 			afterActivate: function(current, data) {
+				//alert(this.params.id);
+				title.innerHTML = this.params.id;
 				overviewTab.set("href", _thisPage.data.path + "/overview.html");
 				guidenceTab.set("href", _thisPage.data.path + "/guidence.html");
 				_thisPage._constructPlayPane();

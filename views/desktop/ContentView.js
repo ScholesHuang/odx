@@ -41,8 +41,7 @@ define(
 		json
 	) {
 		var VIEW_NAME = "content";
-
-		var _thisPage = null;
+		var _thisPage = null;	
 		var overviewTab = null;
 		var playTab = null;
 		var guidenceTab = null;
@@ -61,8 +60,8 @@ define(
 		return {
 			init: function() {
 				console.log("#" + VIEW_NAME + " - init()");
-				_thisPage = this;
-
+				_thisPage = this;	
+				title = dojo.byId("widget-title");				
 				overviewTab = dijit.byId("desktop-overview-tab");
 				playTab = dijit.byId("desktop-play-tab");
 				guidenceTab = dijit.byId("desktop-guidence-tab");
@@ -70,7 +69,6 @@ define(
 				declarationBox = dijit.byId("desktop-play-declaration");
 				programmaticBox = dijit.byId("desktop-play-programmatic");
 				settingBox = dijit.byId("desktop-play-setting");
-				title = dojo.byId("widget-title");
 			},
 			beforeActivate: function(previous, data) {
 				lang.mixin(data, {
@@ -81,13 +79,12 @@ define(
 				});
 			},
 			afterActivate: function(current, data) {
-				//alert(this.params.id);
 				title.innerHTML = this.params.id;
 				overviewTab.set("href", _thisPage.data.path + "/overview.html");
 				guidenceTab.set("href", _thisPage.data.path + "/guidence.html");
 				_thisPage._constructPlayPane();
 
-			},
+			},		
 			_constructPlayPane: function() {
 				//Clean play pane first
 				_thisPage._cleanPlayPane();
@@ -106,7 +103,7 @@ define(
 					_thisPage._renderSettingBox();
 					_thisPage._updateSource();
 				});
-			},
+			},			
 			_renderDemoBox: function() {
 				dojo.forEach(registry.findWidgets(demoBox.containerNode), function(widget) {
 					widget.destroyRecursive();
@@ -136,8 +133,11 @@ define(
 				}, programmaticBox.containerNode);
 			},
 			_renderSettingBox: function() {
+				
+			
 				var textfieldTmpl = '<div class="property-wrapper"><label class="property-label" for="${propName}">${displayName}</label><br/><input type="text" class="property" name="${propName}" value="${defaultValue}"/></div>';
-				var checkboxTmpl = '<div class="property-wrapper"><input type="checkbox" class="property" name="${propName}" ${defaultValue}/><label class="property-label" for="${propName}">${displayName}</label></div>';
+				var uncheckboxTmpl = '<div class="property-wrapper"><input type="checkbox" class="property" name="${propName}"/><label class="property-label" for="${propName}">${displayName}</label></div>';
+				var checkboxTmpl = '<div class="property-wrapper"><input type="checkbox" class="property" name="${propName}" checked=${defaultValue}/><label class="property-label" for="${propName}">${displayName}</label></div>';
 				var textareaTmpl = '<div class="property-wrapper"><label class="property-label" for="${propName}">${displayName}</label><br/><textarea class="property" name="${propName}">${defaultValue}</textarea></div>';
 				var newPropDom = null;
 				array.forEach(settingSrcOrgi.props, function(prop, index) {
@@ -146,7 +146,12 @@ define(
 							newPropDom = domConstruct.place(string.substitute(textfieldTmpl, prop), settingBox.containerNode, "last");
 							break;
 						case "checkbox":
-							newPropDom = domConstruct.place(string.substitute(checkboxTmpl, prop), settingBox.containerNode, "last");
+							if (prop.defaultValue=="true"){
+								newPropDom = domConstruct.place(string.substitute(checkboxTmpl, prop), settingBox.containerNode, "last");
+							}
+							else{
+								newPropDom = domConstruct.place(string.substitute(uncheckboxTmpl, prop), settingBox.containerNode, "last");
+							}
 							break;
 						case "option":
 							newProDox = domConstruct.place(string.substitute(textareaTmpl, prop), settingBox.containerNode, "last");
@@ -178,7 +183,25 @@ define(
 								'{name: "' + option + '", id: "' + option + '"}';
 						});
 						map["dataStore"] = tempStore;
-					} else if (node.name == "id") {
+					}else if (node.name == "optionsValues") 
+					{
+						
+						var tempStore = null;
+						var str="";
+						array.forEach(node.value.split("\n"), function(option, index) {
+							 str = str+"<Option value ='"+option+"'>"+option+"</Option>"+"\n";
+						});
+						
+						map["options"]=str;					
+						array.forEach(node.value.split("\n"), function(option, index) {
+							tempStore = tempStore ? tempStore + ",\n" + '{name: "' + option + '", id: "' + option + '"}' :
+								'{name: "' + option + '", id: "' + option + '"}';
+						});
+						map["dataStore"] = tempStore;
+						
+						
+					}
+					else if (node.name == "id") {
 						map[node.name] = node.value;
 					} else if (node.name == "label") {
 						map[node.name] = node.value;
@@ -207,7 +230,7 @@ define(
 				SyntaxHighlighter.highlight("pre");
 			},
 			_processString: function(s) {
-				return s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+				return s.replace(/&/g, '&').replace(/</g, '<').replace(/>/g, '>');
 			}
 		};
 	}

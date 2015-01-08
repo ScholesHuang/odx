@@ -45,7 +45,7 @@ define([
 
 		var _thisPage = null;
 		var _widgetTree = null;
-		_widgetStore = null;
+		var _widgetStore = null;
 
 		return {
 			init: function() {
@@ -88,7 +88,6 @@ define([
 				if (item.type != "group") {
 					//wrap the search list - Scholes
 					list.destroyDescendants();
-					
 					var transOpts = {
 						target: "main,desktop,content",
 						url: "#main,desktop",

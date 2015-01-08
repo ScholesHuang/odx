@@ -111,6 +111,7 @@ define(
 					new TransitionEvent(evt.target, transOpts, evt).dispatch();
 				}
 			},
+			//Search function - Scholes
 			onSearch: function(results, query, options){
 				if(query.name == "*"){
 					list.destroyDescendants();
@@ -126,7 +127,6 @@ define(
 			      results.nextPage();
 			    }
 			}
-			
 		};
 	}
 );
